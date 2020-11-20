@@ -7,19 +7,7 @@ module.exports.register = (app, database) => {
     });
 
 
-    app.get('/api', async (req, res) => {
-        console.log("=================");
-        let query;
- 
-            query = database.query(
-                'SELECT * FROM course'
-            );
-        
-        console.log(query);
-        const emps = await query;
 
-        res.status(200).send(JSON.stringify(emps)).end();
-    });
 
 
 
@@ -38,12 +26,12 @@ module.exports.register = (app, database) => {
     app.post('/api/emp', async (req, res) => {
         let _id = req.body.id;
         let _name = req.body.name;
-        let _description = req.body.description;
+
         
 
         const query = database.query(
-            'insert into course(id, name, description) values (?, ?, ?)',
-            [_id, _name, _description]
+            'insert into course(id, name, description) values (?, ?)',
+            [_id, _name]
         );
         const emps = await query;
         res.status(200).send('Course added successfully!').end();
