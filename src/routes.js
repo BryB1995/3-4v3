@@ -11,19 +11,19 @@ module.exports.register = (app, database) => {
 
 
 
-    app.get('/api/emp/:id', async (req, res) => {
+    app.get('/api/:id', async (req, res) => {
         let _id = req.params.id;
         const query = database.query(
             'select * from course where id = ?',
             [_id]
         );
-        const emps = await query;
-        res.status(200).send(JSON.stringify(emps)).end();
+        const report = await query;
+        res.status(200).send(JSON.stringify(report)).end();
     });
 
 
 
-    app.post('/api/emp', async (req, res) => {
+    app.post('/api/add', async (req, res) => {
         let _id = req.body.id;
         let _name = req.body.name;
 
@@ -33,18 +33,18 @@ module.exports.register = (app, database) => {
             'insert into course(id, name, description) values (?, ?)',
             [_id, _name]
         );
-        const emps = await query;
+        const report = await query;
         res.status(200).send('Course added successfully!').end();
     });
 
-    app.post('/api/emp', async (req, res) => {
+    app.put('/api/mod', async (req, res) => {
         let _id = req.body.id;
         let _description = req.body.description;
         const query = database.query(
-            'REPLACE INTO course(description) SELECT description FROM couse WHERE id = ? values (?)',
-            [_id, _description]
+            'update course set description = ? where id = ?;',
+            [_description, _id]
         );
-        const emps = await query;
+        const report = await query;
         res.status(200).send('Course updated successfully').end();
     });
 
