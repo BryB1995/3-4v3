@@ -30,7 +30,7 @@ module.exports.register = (app, database) => {
         
 
         const query = database.query(
-            'insert into course(id, name, description) values (?, ?)',
+            'insert into course(id, name) values (?, ?)',
             [_id, _name]
         );
         const report = await query;
